@@ -2,6 +2,10 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
+import { EditModeManager, EditMode } from './EditModeManager.js';
+
+let editModeManager: EditModeManager = new EditModeManager;
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -18,6 +22,14 @@ export function activate(context: vscode.ExtensionContext) {
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from zim!');
 	});
+	
+	context.subscriptions.push(vscode.commands.registerCommand('zim.enterNormalMode', () => {
+		editModeManager.enterNormalMode();
+	}));
+	
+	context.subscriptions.push(vscode.commands.registerCommand('zim.enterInsertMode', () => {
+		editModeManager.enterInsertMode();
+	}));
 
 	context.subscriptions.push(disposable);
 }

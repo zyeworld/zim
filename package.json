@@ -16,6 +16,26 @@
       {
         "command": "zim.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "zim.enterNormalMode",
+        "title": "enterNormalMode"
+      },
+      {
+        "command": "zim.enterInsertMode",
+        "title": "enterInsertMode"
+      }
+    ],
+    "keybindings": [
+      {
+        "key": "Escape",
+        "command": "zim.enterNormalMode",
+        "when": "zim.currEditMode != 'normal'"
+      },
+      {
+        "key": "Escape",
+        "command": "zim.enterInsertMode",
+        "when": "zim.currEditMode == 'normal'"
       }
     ]
   },
