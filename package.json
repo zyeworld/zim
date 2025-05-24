@@ -9,13 +9,54 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "zim.helloWorld",
-        "title": "Hello World"
+        "command": "zim.toggleZim",
+        "title": "Zim: Toggle Zim Mode"
+      }
+    ],
+    "keybindings": [
+      {
+        "key": "Escape",
+        "command": "zim.escape",
+        "when": "editorTextFocus && !inDebugRepl"
+      },
+      {
+        "key": "Escape",
+        "command": "notebook.cell.quitEdit",
+        "when": "inputFocus && notebookEditorFocused && !editorHasSelection && !editorHoverVisible"
+      },
+      {
+        "key": "ctrl+home",
+        "command": "zim.ctrl+home",
+        "when": "editorTextFocus && !inDebugRepl"
+      },
+      {
+        "key": "Space",
+        "command": "zim.space",
+        "when": "editorTextFocus && !inDebugRepl"
+      },
+      {
+        "key": "i",
+        "command": "zim.i",
+        "when": "editorTextFocus && !inDebugRepl"
+      },
+      {
+        "key": "j",
+        "command": "zim.j",
+        "when": "editorTextFocus && !inDebugRepl"
+      }
+    ],
+    "configuration":[
+      {
+        "title": "Zim",
+        "type": "object",
+        "properties": {}
       }
     ]
   },
