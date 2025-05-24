@@ -1,5 +1,9 @@
 import * as vscode from 'vscode';
 
+import { EditModeManager, EditMode } from './EditModeManager.js';
+
+let editModeManager: EditModeManager = new EditModeManager;
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -12,6 +16,15 @@ export function activate(context: vscode.ExtensionContext) {
 		// The code you place here will be executed every time your command is executed
 		vscode.window.showInformationMessage('Toggle zim mode!');
 	});
+	
+	context.subscriptions.push(vscode.commands.registerCommand('zim.enterNormalMode', () => {
+		editModeManager.enterNormalMode();
+	}));
+	
+	context.subscriptions.push(vscode.commands.registerCommand('zim.enterInsertMode', () => {
+		editModeManager.enterInsertMode();
+	}));
+
 	context.subscriptions.push(disposable);
 
 	context.subscriptions.push(vscode.commands.registerCommand('zim.escape', () => {

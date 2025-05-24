@@ -16,8 +16,16 @@
   "contributes": {
     "commands": [
       {
-        "command": "zim.toggleZim",
-        "title": "Zim: Toggle Zim Mode"
+        "command": "zim.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "zim.enterNormalMode",
+        "title": "enterNormalMode"
+      },
+      {
+        "command": "zim.enterInsertMode",
+        "title": "enterInsertMode"
       }
     ],
     "keybindings": [
