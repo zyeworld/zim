@@ -1,8 +1,10 @@
 import * as vscode from 'vscode';
 
 import { ModeManager } from './util/modeManager.js';
+import { CursorMover } from './cursor/cursorMover.js';
 
 let modeManager: ModeManager = new ModeManager;
+let cursorMover: CursorMover = new CursorMover;
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -18,6 +20,22 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	context.subscriptions.push(vscode.commands.registerCommand('zim.enterInsertMode', () => {
 		modeManager.enterInsertMode();
+	}));
+
+	context.subscriptions.push(vscode.commands.registerCommand('zim.moveCursorUp', () => {
+		cursorMover.moveUp(1);
+	}));
+
+	context.subscriptions.push(vscode.commands.registerCommand('zim.moveCursorDown', () => {
+		cursorMover.moveDown(1);
+	}));
+
+	context.subscriptions.push(vscode.commands.registerCommand('zim.moveCursorLeft', () => {
+		cursorMover.moveLeft(1);
+	}));
+	
+	context.subscriptions.push(vscode.commands.registerCommand('zim.moveCursorRight', () => {
+		cursorMover.moveRight(1);
 	}));
 }
 

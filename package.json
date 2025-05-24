@@ -17,13 +17,33 @@
     "commands": [],
     "keybindings": [
       {
-        "key": "Escape",
+        "key": "CapsLock",
         "command": "zim.enterNormalMode",
         "when": "editorTextFocus && !inDebugRepl && zim.currEditMode != 'normal'"
       },
       {
-        "key": "Escape",
+        "key": "CapsLock",
         "command": "zim.enterInsertMode",
+        "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
+      },
+      {
+        "key": "i",
+        "command": "zim.moveCursorUp",
+        "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
+      },
+      {
+        "key": "k",
+        "command": "zim.moveCursorDown",
+        "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
+      },
+      {
+        "key": "j",
+        "command": "zim.moveCursorLeft",
+        "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
+      },
+      {
+        "key": "l",
+        "command": "zim.moveCursorRight",
         "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
       },
       {

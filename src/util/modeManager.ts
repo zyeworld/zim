@@ -7,9 +7,12 @@ export enum Mode {
 
 export class ModeManager {
     private mode: Mode;
+    private statusBar: vscode.StatusBarItem;
 
     public constructor() {
         this.mode = Mode.INSERT;
+        this.statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+        this.statusBar.show();
     }
 
     public getMode (): Mode {
@@ -27,6 +30,9 @@ export class ModeManager {
 
         // notify current mode 
         vscode.window.showInformationMessage('CURRENT MODE: NORMAL');
+
+        // set status bar
+        this.statusBar.text = "-- NORMAL --";
 
         // set when clause context
         vscode.commands.executeCommand('setContext', 'zim.currEditMode', 'normal')
@@ -46,6 +52,9 @@ export class ModeManager {
 
         // notify current mode 
         vscode.window.showInformationMessage('CURRENT MODE: INSERT');
+
+        // set status bar
+        this.statusBar.text = "-- INSERT --";
 
         // set when clause context
         vscode.commands.executeCommand('setContext', 'zim.currEditMode', 'insert');
