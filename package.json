@@ -31,8 +31,8 @@
     "keybindings": [
       {
         "key": "Escape",
-        "command": "zim.escape",
-        "when": "editorTextFocus && !inDebugRepl"
+        "command": "zim.enterNormalMode",
+        "when": "editorTextFocus && !inDebugRepl && zim.currEditMode != 'normal'"
       },
       {
         "key": "Escape",
