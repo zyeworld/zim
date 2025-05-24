@@ -1,19 +1,19 @@
 import * as vscode from 'vscode';
 
-export enum EditMode {
+export enum Mode {
     NORMAL = 'normal',
     INSERT = 'insert'
 }
 
-export class EditModeManager {
-    private editMode: EditMode;
+export class ModeManager {
+    private mode: Mode;
 
     public constructor() {
-        this.editMode = EditMode.INSERT;
+        this.mode = Mode.INSERT;
     }
 
-    public getEditMode (): EditMode {
-        return this.editMode;
+    public getMode (): Mode {
+        return this.mode;
     }
 
     public enterNormalMode() {
@@ -32,7 +32,7 @@ export class EditModeManager {
         vscode.commands.executeCommand('setContext', 'zim.currEditMode', 'normal')
 
         // set editor's editmode
-        this.editMode = EditMode.NORMAL;
+        this.mode = Mode.NORMAL;
     }
     
     public enterInsertMode() {
@@ -51,6 +51,6 @@ export class EditModeManager {
         vscode.commands.executeCommand('setContext', 'zim.currEditMode', 'insert');
 
         // set editor's editmode
-        this.editMode = EditMode.INSERT;
+        this.mode = Mode.INSERT;
     }
 }

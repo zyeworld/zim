@@ -14,20 +14,7 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "zim.helloWorld",
-        "title": "Hello World"
-      },
-      {
-        "command": "zim.enterNormalMode",
-        "title": "enterNormalMode"
-      },
-      {
-        "command": "zim.enterInsertMode",
-        "title": "enterInsertMode"
-      }
-    ],
+    "commands": [],
     "keybindings": [
       {
         "key": "Escape",
@@ -36,28 +23,13 @@
       },
       {
         "key": "Escape",
+        "command": "zim.enterInsertMode",
+        "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
+      },
+      {
+        "key": "Escape",
         "command": "notebook.cell.quitEdit",
         "when": "inputFocus && notebookEditorFocused && !editorHasSelection && !editorHoverVisible"
-      },
-      {
-        "key": "ctrl+home",
-        "command": "zim.ctrl+home",
-        "when": "editorTextFocus && !inDebugRepl"
-      },
-      {
-        "key": "Space",
-        "command": "zim.space",
-        "when": "editorTextFocus && !inDebugRepl"
-      },
-      {
-        "key": "i",
-        "command": "zim.i",
-        "when": "editorTextFocus && !inDebugRepl"
-      },
-      {
-        "key": "j",
-        "command": "zim.j",
-        "when": "editorTextFocus && !inDebugRepl"
       }
     ],
     "configuration":[
