@@ -48,9 +48,9 @@
         "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
       },
       {
-        "key": "Escape",
-        "command": "notebook.cell.quitEdit",
-        "when": "inputFocus && notebookEditorFocused && !editorHasSelection && !editorHoverVisible"
+        "key": "Space",
+        "command": "zim.space",
+        "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
       }
     ],
     "configuration":[

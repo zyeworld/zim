@@ -20,10 +20,14 @@ export class ModeManager {
     }
 
     public enterNormalMode() {
-        // set cursor to 'block'
         if (vscode.window.activeTextEditor === undefined) {
             return;
         }
+        if (this.mode === Mode.NORMAL) {
+            return;
+        }
+
+        // set cursor to 'block'
         vscode.window.activeTextEditor.options = {
             cursorStyle: vscode.TextEditorCursorStyle.Block
         };
@@ -35,17 +39,21 @@ export class ModeManager {
         this.statusBar.text = "-- NORMAL --";
 
         // set when clause context
-        vscode.commands.executeCommand('setContext', 'zim.currEditMode', 'normal')
+        vscode.commands.executeCommand('setContext', 'zim.currEditMode', Mode.NORMAL)
 
         // set editor's editmode
         this.mode = Mode.NORMAL;
     }
     
     public enterInsertMode() {
-        // set cursor to 'line'
         if (vscode.window.activeTextEditor === undefined) {
             return;
         }
+        if (this.mode === Mode.INSERT) {
+            return;
+        }
+
+        // set cursor to 'line'
         vscode.window.activeTextEditor.options = {
             cursorStyle: vscode.TextEditorCursorStyle.Line
         };
@@ -57,7 +65,7 @@ export class ModeManager {
         this.statusBar.text = "-- INSERT --";
 
         // set when clause context
-        vscode.commands.executeCommand('setContext', 'zim.currEditMode', 'insert');
+        vscode.commands.executeCommand('setContext', 'zim.currEditMode', Mode.INSERT);
 
         // set editor's editmode
         this.mode = Mode.INSERT;
