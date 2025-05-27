@@ -14,11 +14,12 @@ export function activate(context: vscode.ExtensionContext) {
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "zim" is now active!');
 
-	context.subscriptions.push(vscode.commands.registerCommand('zim.enterNormalMode', () => {
+	context.subscriptions.push(vscode.commands.registerTextEditorCommand('zim.enterNormalMode', (editor: vscode.TextEditor) => {
+		cursorMover.stopSpaceTravel(editor);
 		modeManager.enterNormalMode();
 	}));
 	
-	context.subscriptions.push(vscode.commands.registerCommand('zim.enterInsertMode', () => {
+	context.subscriptions.push(vscode.commands.registerTextEditorCommand('zim.enterInsertMode', (editor: vscode.TextEditor) => {
 		modeManager.enterInsertMode();
 	}));
 
@@ -30,7 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('type', (args) => {
 
 		// Do default action when not in normal mode
-		if (modeManager.getMode() != Mode.NORMAL) {
+		if (modeManager.getMode() !== Mode.NORMAL) {
 			return vscode.commands.executeCommand('default:type', args);
 		}
 		// Do nothing if a text editor isn't active

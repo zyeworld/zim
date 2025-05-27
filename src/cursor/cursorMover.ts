@@ -55,8 +55,46 @@ export class CursorMover {
         });
     }
 
-    // Start a new space travel
-    private startSpaceTravel(editor: vscode.TextEditor) {
+    /**
+     * Show the spaceState.space Box on screen
+     */
+    public showSpace(editor: vscode.TextEditor, removePrevious: boolean = true) {
+        // 1. If box already exists, remove it
+        if (removePrevious && this.spaceState.decoration) {
+            editor.setDecorations(this.spaceState.decoration, []);
+        }
+
+        // 2. Set CSS for new Box
+        const boxCss: CssObject = {
+            position: 'absolute',
+            display: 'inline-block',
+            left: (this.spaceState.charWidth * this.spaceState.space.minX).toString() + 'ch',
+            width: (this.spaceState.charWidth * (this.spaceState.space.maxX - this.spaceState.space.minX)).toString() + 'ch',
+            top: (this.spaceState.charHeight * this.spaceState.space.minY).toString() + 'px',
+            height: (this.spaceState.charHeight * (this.spaceState.space.maxY - this.spaceState.space.minY + 1)).toString() + 'px',
+            'z-index': 1,
+            'pointer-events': 'none',
+            'background-color': '#CCCCCC22',
+            border: '1px solid black',
+            'border-radius': '1ch'
+        };
+        this.spaceState.decoration = vscode.window.createTextEditorDecorationType(<vscode.DecorationRenderOptions>{
+            before: {
+                contentText: '',
+                textDecoration: `none; ${StyleCalculator.cssToString(boxCss)}`
+            }
+        });
+
+        // 3. Show Box on screen
+        const viewportStart = editor.visibleRanges[0];
+        editor.setDecorations(this.spaceState.decoration, [viewportStart]);
+    }
+
+    /**
+     * Start a new space travel (create a new box)
+     */ 
+    public startSpaceTravel(editor: vscode.TextEditor) {
+        this.spaceState.active = true;
         const lineStart = editor.visibleRanges[0].start.line;
         const lineEnd = editor.visibleRanges[0].end.line;
 
@@ -67,11 +105,14 @@ export class CursorMover {
             maxX = Math.max(maxX, editor.document.lineAt(i).range.end.character);
         }
 
-        const newSpace: Box = { minX, maxX, minY: 0, maxY: lineEnd - lineStart };
+        this.spaceState.space = { minX, maxX, minY: 0, maxY: lineEnd - lineStart };
+        this.showSpace(editor);
     }
 
-    // Stop the current space travel
-    private stopSpaceTravel(editor: vscode.TextEditor) {
+    /**
+     * Stop the current space travel
+     */
+    public stopSpaceTravel(editor: vscode.TextEditor) {
         this.spaceState.active = false;
         if (this.spaceState.decoration) {
             editor.setDecorations(this.spaceState.decoration, []);
@@ -80,8 +121,10 @@ export class CursorMover {
         return;
     }
 
-    // Halve the box in a certain direction
-    private spaceTravel(editor: vscode.TextEditor, direction: Direction) {
+    /**
+     * Halve the box in a certain direction
+     */
+    public spaceTravel(editor: vscode.TextEditor, direction: Direction) {
         // 1. Update spaceTravelState
         this.spaceState.active = true;
         this.spaceState.previousSpace = this.spaceState.space;
@@ -130,40 +173,9 @@ export class CursorMover {
         const newCursorPosition = new vscode.Position(newCursorY, newCursorX);
         const newSelection = new vscode.Selection(newCursorPosition, newCursorPosition);
         editor.selections = [newSelection];
-        // const cursorPosition = editor.selection.active;
-        // const newRange = new vscode.Range(
-        //     cursorPosition.with(cursorPosition.line, cursorPosition.character),
-        //     // Value can't be negative
-        //     cursorPosition.with(cursorPosition.line, Math.max(0, cursorPosition.character))
-        // );
 
-        // 4. Visually remove previous box
-        if (this.spaceState.decoration) {
-            editor.setDecorations(this.spaceState.decoration, []);
-        }
-
-        // 5. Visually create new box
-        const boxCss: CssObject = {
-            position: 'absolute',
-            display: 'inline-block',
-            left: (this.spaceState.charWidth * this.spaceState.space.minX).toString() + 'ch',
-            width: (this.spaceState.charWidth * (this.spaceState.space.maxX - this.spaceState.space.minX)).toString() + 'ch',
-            top: (this.spaceState.charHeight * this.spaceState.space.minY).toString() + 'px',
-            height: (this.spaceState.charHeight * (this.spaceState.space.maxY - this.spaceState.space.minY + 1)).toString() + 'px',
-            'z-index': 1,
-            'pointer-events': 'none',
-            'background-color': '#CCCCCC22',
-            border: '1px solid black',
-            'border-radius': '1ch'
-        }
-        this.spaceState.decoration = vscode.window.createTextEditorDecorationType(<vscode.DecorationRenderOptions>{
-            before: {
-                contentText: '',
-                textDecoration: `none; ${StyleCalculator.cssToString(boxCss)}`
-            }
-        });
-        const viewportStart = editor.visibleRanges[0];
-        editor.setDecorations(this.spaceState.decoration, [viewportStart]);
+        // 4. Visually create new box
+        this.showSpace(editor);
     }
 
     public activate(context: vscode.ExtensionContext) {
