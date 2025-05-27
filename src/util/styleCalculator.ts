@@ -10,7 +10,7 @@ export class StyleCalculator {
      * @returns Line height in pixels
      */
     public static calculateLineHeight(lineHeight: number, fontSize: number): number {
-        const fontSizeToPixels = Math.ceil(fontSize * 1.333);
+        const fontSizeToPixels = Math.ceil(fontSize * 3 / 2 - 0.00001);
         if (lineHeight === 0) {
             return fontSizeToPixels;
         } else if (lineHeight < 8) {

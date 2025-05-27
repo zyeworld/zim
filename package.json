@@ -18,37 +18,64 @@
     "commands": [],
     "keybindings": [
       {
-        "key": "CapsLock",
+        "key": "capslock",
         "command": "zim.enterNormalMode",
-        "when": "editorTextFocus && !inDebugRepl && zim.currEditMode != 'normal'"
+        "when": "!isMac && editorTextFocus && !inDebugRepl && zim.currEditMode != 'normal'"
       },
       {
-        "key": "CapsLock",
+        "key": "capslock",
         "command": "zim.enterInsertMode",
-        "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
+        "when": "!isMac && editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
+      },
+      {
+        "key": "escape",
+        "command": "zim.enterNormalMode",
+        "when": "isMac && editorTextFocus && !inDebugRepl && zim.currEditMode != 'normal'"
+      },
+      {
+        "key": "escape",
+        "command": "zim.enterInsertMode",
+        "when": "isMac && editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
+      },
+      {
+        "key": "escape",
+        "command": "notebook.cell.quitEdit",
+        "when": "isMac && inputFocus && notebookEditorFocused && !editorHasSelection && !editorHoverVisible && zim.currEditMode == 'normal'"
       },
       {
         "key": "i",
-        "command": "zim.moveCursorUp",
+        "command": "zim.moveUp",
         "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
       },
       {
         "key": "k",
-        "command": "zim.moveCursorDown",
+        "command": "zim.moveDown",
         "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
       },
       {
         "key": "j",
-        "command": "zim.moveCursorLeft",
+        "command": "zim.moveLeft",
         "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
       },
       {
         "key": "l",
-        "command": "zim.moveCursorRight",
+        "command": "zim.moveRight",
         "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
       },
       {
-        "key": "Space",
+        "key": "Ctrl+j",
+        "mac": "Alt+j",
+        "command": "zim.moveWordLeft",
+        "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
+      },
+      {
+        "key": "Ctrl+l",
+        "mac": "Alt+l",
+        "command": "zim.moveWordRight",
+        "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
+      },
+      {
+        "key": "space",
         "command": "zim.space",
         "when": "editorTextFocus && !inDebugRepl && zim.currEditMode == 'normal'"
       }

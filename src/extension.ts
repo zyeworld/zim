@@ -15,11 +15,11 @@ export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "zim" is now active!');
 
 	context.subscriptions.push(vscode.commands.registerTextEditorCommand('zim.enterNormalMode', (editor: vscode.TextEditor) => {
-		cursorMover.stopSpaceTravel(editor);
 		modeManager.enterNormalMode();
 	}));
 	
 	context.subscriptions.push(vscode.commands.registerTextEditorCommand('zim.enterInsertMode', (editor: vscode.TextEditor) => {
+		cursorMover.stopSpaceTravel(editor);
 		modeManager.enterInsertMode();
 	}));
 
